@@ -19,7 +19,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 /**
  * Main.java - Test class written to execute the tests
  */
-public class Main {
+public class TestForWithoutIssueCase {
     public static void main(String[] args){
 
 //        ApplicationContext context
@@ -43,12 +43,11 @@ public class Main {
         pf.addAdvisor(advisor);
         CircuitBreakerService proxy = (CircuitBreakerServiceImpl)pf.getProxy();
 
-        //proxy.withoutaIssue();
-        
+        // Positive case
         for(int i=0; i < 25; i ++) {
         	System.out.println(i);
-           proxy.withAIssue();
-        }
+           proxy.withoutaIssue();
+        }        
 
 
     }
@@ -57,7 +56,7 @@ public class Main {
         CircuitBreakerInterceptor circuitBreakerInterceptor = new CircuitBreakerInterceptor(2, 10);
         List<Class<? extends Throwable>> noFailureExceptions = new ArrayList<>();
         noFailureExceptions.add(java.lang.IllegalArgumentException.class);
-        //noFailureExceptions.add(BreakingException.class);
+        noFailureExceptions.add(BreakingException.class);
         circuitBreakerInterceptor.setNoFailureExceptions(noFailureExceptions);
         return circuitBreakerInterceptor;
     }
