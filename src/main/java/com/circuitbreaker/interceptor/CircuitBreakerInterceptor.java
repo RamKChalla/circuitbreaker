@@ -124,7 +124,7 @@ public class CircuitBreakerInterceptor implements MethodInterceptor
                     // check if the excetion is not a 4XX exception
                     // if both the above conditions are false that means its a failure
                     // increase the failure count and check for the threshold to off the circuit breaker.
-                    log.info("Breaker is still Failure of operation " + invocation.getMethod().toGenericString() + " in circuit breaker", t);
+                    log.info("Failure of operation " + invocation.getMethod().toGenericString() + " in circuit breaker", t);
                     if (!isaNonFailureException(t) && !checkForClient4xxExceptions(t))
                     {
                         handleFailuresNThreshhold(invocation, breaker, t);

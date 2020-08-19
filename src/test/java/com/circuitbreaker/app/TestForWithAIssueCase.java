@@ -44,7 +44,7 @@ public class TestForWithAIssueCase {
         CircuitBreakerService proxy = (CircuitBreakerServiceImpl)pf.getProxy();
         
         // Actual test
-        for(int i=0; i < 15; i ++) {
+        for(int i=0; i < 25; i ++) {
         	System.out.println(i);
            proxy.withAIssue();
         }
@@ -56,7 +56,7 @@ public class TestForWithAIssueCase {
         CircuitBreakerInterceptor circuitBreakerInterceptor = new CircuitBreakerInterceptor(2, 10);
         List<Class<? extends Throwable>> noFailureExceptions = new ArrayList<>();
         noFailureExceptions.add(java.lang.IllegalArgumentException.class);
-        noFailureExceptions.add(BreakingException.class);
+        //noFailureExceptions.add(BreakingException.class);
         circuitBreakerInterceptor.setNoFailureExceptions(noFailureExceptions);
         return circuitBreakerInterceptor;
     }
