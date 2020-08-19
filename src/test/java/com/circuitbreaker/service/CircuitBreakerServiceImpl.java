@@ -11,15 +11,11 @@ public class CircuitBreakerServiceImpl implements CircuitBreakerService{
         log.info("without problems");
     }
 
-    public void withProblem()
+    public void withAIssue()
     {
         throw new BreakingException("breaking exception!");
     }
 
-    public void withIgnoredProblem()
-    {
-        throw new IllegalArgumentException("illegal argument");
-    }
 
     public static class BreakingException extends RuntimeException
     {

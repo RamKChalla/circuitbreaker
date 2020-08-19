@@ -24,7 +24,7 @@ public class Main {
         CircuitBreakerService target = new CircuitBreakerServiceImpl();
 
         NameMatchMethodPointcut pc = new NameMatchMethodPointcut();
-        pc.addMethodName("withProblem");
+        pc.addMethodName("withAIssue");
         pc.addMethodName("withIgnoredProblem");
         pc.addMethodName("withoutProblem");
 
@@ -35,7 +35,7 @@ public class Main {
         pf.addAdvisor(advisor);
         CircuitBreakerServiceImpl proxy = (CircuitBreakerServiceImpl)pf.getProxy();
 
-        proxy.withProblem();
+        proxy.withAIssue();
 
 
     }
