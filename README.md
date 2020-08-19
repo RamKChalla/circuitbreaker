@@ -28,7 +28,8 @@
 * Example: `@ApplyCircuitBreaker(name="MethodName", failureThreshold = 20, timeUntilRetry = 300)`   
             `public void withoutaIssue();`
             
-* <b>issue</b> - used Intellij community edition to develo this project, community edition doesn't support Spring. This project can be enhance with retry etc.,
+* <b>issue</b> - used Intellij community edition to developed this project, community edition doesn't support Spring. This project can be enhance with retry etc.,
+* please use IDE STS
 
 ### Added Tests
 * TestForWithAIssueCase.java
