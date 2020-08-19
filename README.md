@@ -32,6 +32,16 @@
 
 ### Added Tests
 * TestForWithAIssueCase.java
+` After configured no of failures - we get this error
+Exception in thread "main" com.circuitbreaker.exception.CircuitBreakerException: The operation public void com.circuitbreaker.service.CircuitBreakerServiceImpl.withAIssue() has too many failures, tripping circuit breaker.
+	at com.circuitbreaker.interceptor.CircuitBreakerInterceptor.handleFailuresNThreshhold(CircuitBreakerInterceptor.java:161)
+	at com.circuitbreaker.interceptor.CircuitBreakerInterceptor.invoke(CircuitBreakerInterceptor.java:130)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:749)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:691)
+	at com.circuitbreaker.service.CircuitBreakerServiceImpl$$EnhancerBySpringCGLIB$$e829a3b7.withAIssue(<generated>)
+	at com.circuitbreaker.app.TestForWithAIssueCase.main(TestForWithAIssueCase.java:49)
+`
 * TestForWithoutIssueCase.java
 * TestForWithAIssueWithNofailureExceptionList.java
     
