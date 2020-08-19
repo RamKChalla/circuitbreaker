@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicLong;
 public class CircuitBreaker
 {
     private final long failureThreshold;
-    private AtomicLong failureCount;
+    private AtomicLong failureCount = new AtomicLong(0);
     private final long timeUntilRetry;
     private CircuitBreakerStatus status;
     private long lastOpenedTime;

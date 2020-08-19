@@ -1,9 +1,14 @@
 package com.circuitbreaker.app;
 
 import com.circuitbreaker.config.CircuitBreakerConfiguration;
+import com.circuitbreaker.exception.BreakingException;
 import com.circuitbreaker.interceptor.CircuitBreakerInterceptor;
 import com.circuitbreaker.service.CircuitBreakerService;
 import com.circuitbreaker.service.CircuitBreakerServiceImpl;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.aop.Advisor;
 import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
@@ -24,19 +29,36 @@ public class Main {
         CircuitBreakerService target = new CircuitBreakerServiceImpl();
 
         NameMatchMethodPointcut pc = new NameMatchMethodPointcut();
+        pc.addMethodName("withoutaIssue");
+        //pc.addMethodName("withIgnoredProblem");
         pc.addMethodName("withAIssue");
-        pc.addMethodName("withIgnoredProblem");
-        pc.addMethodName("withoutProblem");
 
-        Advisor advisor = new DefaultPointcutAdvisor(pc, new CircuitBreakerInterceptor( 2,10));
+        CircuitBreakerInterceptor interceptor = circuitBreakerInterceptor();
+        
+        
+        Advisor advisor = new DefaultPointcutAdvisor(pc, interceptor);
 
         ProxyFactory pf = new ProxyFactory();
         pf.setTarget(target);
         pf.addAdvisor(advisor);
-        CircuitBreakerServiceImpl proxy = (CircuitBreakerServiceImpl)pf.getProxy();
+        CircuitBreakerService proxy = (CircuitBreakerServiceImpl)pf.getProxy();
 
-        proxy.withAIssue();
+        //proxy.withoutaIssue();
+        
+        for(int i=0; i < 25; i ++) {
+        	System.out.println(i);
+           proxy.withAIssue();
+        }
 
 
+    }
+    
+    static CircuitBreakerInterceptor circuitBreakerInterceptor(){
+        CircuitBreakerInterceptor circuitBreakerInterceptor = new CircuitBreakerInterceptor(2, 10);
+        List<Class<? extends Throwable>> noFailureExceptions = new ArrayList<>();
+        noFailureExceptions.add(java.lang.IllegalArgumentException.class);
+        //noFailureExceptions.add(BreakingException.class);
+        circuitBreakerInterceptor.setNoFailureExceptions(noFailureExceptions);
+        return circuitBreakerInterceptor;
     }
 }
